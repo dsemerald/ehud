@@ -22,4 +22,14 @@ public class World {
 	 * y-coordinates. This makes search easy
 	 */
 	List<Interference> interferenceElements = new ArrayList<Interference>();
+	
+	/**
+	 * Loads the world with members
+	 * @return 0 is load unsuccessful
+	 * @return 1 if load successful
+	 */
+	int initialize(){
+		
+		return 0;
+	}
 }

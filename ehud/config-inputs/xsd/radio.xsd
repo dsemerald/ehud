@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+	<xsd:element name="radio">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="coordinates"> <!-- position in grid -->
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="x" type="xsd:byte"/>
+							<xsd:element name="y" type="xsd:byte"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="activeFrame" type="xsd:byte"/> <!-- frame when active -->
+				<xsd:element name="radioState" type="xsd:byte"/> <!-- radio on/off -->
+				<xsd:element name="type" type="xsd:string"/>
+				<xsd:element name="antenna"> <!-- antenna characteristics -->
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="transmitter" type="xsd:byte"/>
+							<xsd:element name="receiver" type="xsd:byte"/>
+							<xsd:element name="towerMounted" type="xsd:byte"/>
+							<xsd:element name="antennaLength" type="xsd:short"/>
+							<xsd:element name="maxTransmissionPower" type="xsd:short"/>
+							<xsd:element name="powerSaverModeOn" type="xsd:byte"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="frequency">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="mode" type="xsd:string"/> <!-- FFR / SFR -->
+							<xsd:element name="main" type="xsd:short"/>
+							<xsd:element name="fractional" type="xsd:byte"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="autoConfig" type="xsd:string"/>
+				<xsd:element name="handoverSNR" type="xsd:float"/> <!-- HO signal to noise ratio -->
+				<xsd:element name="cellID" type="xsd:int"/>
+				<xsd:element name="network">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="lte" type="xsd:byte"/> <!-- LTE capability -->
+							<xsd:element name="g2" type="xsd:byte"/> <!-- 2G capability -->
+							<xsd:element name="g3" type="xsd:byte"/> <!-- 3G capability -->
+							<xsd:element name="non-3gpp" type="xsd:byte"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
