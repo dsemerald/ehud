@@ -1,7 +1,11 @@
 package ehud;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import org.apache.commons.io.FileUtils;
 
 /**
  * The world consists of radio elements and interference elements all defined in
@@ -29,7 +33,13 @@ public class World {
 	 * @return 1 if load successful
 	 */
 	int initialize(){
-		
+		Collection<File> files = 
+			    FileUtils.listFiles(new File("xml"), null, false);
+		for (File xml: files){
+			if(xml.getName().startsWith("radio_")){
+				System.out.println(xml.getName());
+			}
+		}
 		return 0;
 	}
 }
