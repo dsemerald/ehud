@@ -3,9 +3,21 @@ package ehud;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
+
 import org.apache.commons.io.FileUtils;
+import org.w3c.dom.Document;
+
+import ehud.comparators.AxisSorter;
 
 /**
  * The world consists of radio elements and interference elements all defined in
@@ -26,20 +38,45 @@ public class World {
 	 * y-coordinates. This makes search easy
 	 */
 	List<Interference> interferenceElements = new ArrayList<Interference>();
-	
+
 	/**
 	 * Loads the world with members
+	 * 
 	 * @return 0 is load unsuccessful
 	 * @return 1 if load successful
 	 */
-	int initialize(){
-		Collection<File> files = 
-			    FileUtils.listFiles(new File("xml"), null, false);
-		for (File xml: files){
-			if(xml.getName().startsWith("radio_")){
-				System.out.println(xml.getName());
+	int initialize() {
+		Collection<File> files = FileUtils.listFiles(new File("xml"), null,
+				false);
+		try {
+			// build the common objects we need outside the for loop
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory
+					.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			XPathFactory xPathfactory = XPathFactory.newInstance();
+			XPath xpath = xPathfactory.newXPath();
+			XPathExpression xcord = xpath.compile("/radio/coordinates/x/text()");
+			XPathExpression ycord = xpath.compile("/radio/coordinates/y/text()");
+			for (File xml : files) {
+				if (xml.getName().startsWith("radio_")) {
+					System.out.println(xml.getName());
+					try {
+						Document doc = dBuilder.parse(xml);
+						Radio r = new Radio();
+						r.setxCoord(Float.valueOf(xcord.evaluate(doc)));
+						r.setyCoord(Float.valueOf(ycord.evaluate(doc)));
+						radioElements.add(r);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
 			}
+			Collections.sort(radioElements,new AxisSorter());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return 0;
 	}
 }
+
+
