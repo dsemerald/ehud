@@ -1,7 +1,9 @@
 package ehud;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -42,12 +44,22 @@ public class Plot {
 	private BufferedImage plotRadios(BufferedImage bi, World w) {
 		int rectWidth=5, rectHeight = 5;
 		Graphics2D g = (Graphics2D) bi.getGraphics();
-		g.setPaint(Color.red);
 		for(Radio r:w.getRadioElements()){
+			g.setPaint(Color.red);
+			AlphaComposite myAlpha = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1f);
+			g.setComposite(myAlpha);
 			g.draw(new Rectangle2D.Double(r.getxCoord(), r.getyCoord(),
                     rectWidth,
                     rectHeight));
 			g.drawString(String.valueOf(r.getCellID()), r.getxCoord(), r.getyCoord());
+			// now draw how far the transmission goes
+			g.setColor(Color.blue);
+			float alpha = 0.50f;
+			int d = 150;
+			Ellipse2D.Double circle = new Ellipse2D.Double(r.getxCoord()-d/2,r.getyCoord()-d/2,d,d);
+			myAlpha = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.5f);
+			g.setComposite(myAlpha);
+			g.fill(circle);
 		}
 		return bi;
 	}
