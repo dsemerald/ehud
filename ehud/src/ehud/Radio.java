@@ -14,6 +14,8 @@ public class Radio {
 	 * y-Coordinate of the center
 	 */
 	float yCoord;
+	/** The physical cell id **/
+	int cellID;
 	
 	/*
 	 * Getter and setters
@@ -29,6 +31,12 @@ public class Radio {
 	}
 	public void setyCoord(float yCoord) {
 		this.yCoord = yCoord;
+	}
+	public int getCellID() {
+		return cellID;
+	}
+	public void setCellID(int cellID) {
+		this.cellID = cellID;
 	}
 	
 	

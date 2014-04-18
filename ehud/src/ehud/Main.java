@@ -6,7 +6,8 @@ public class Main {
 		// TODO Auto-generated method stub
 		World world = new World();
 		world.initialize();
-
+		Plot p = new Plot();
+		p.saveImageToFile(world);
 	}
 
 }

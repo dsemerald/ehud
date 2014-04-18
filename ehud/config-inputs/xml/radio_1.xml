@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <radio xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../xsd/radio.xsd">
   <coordinates>
-    <x>5</x>
-    <y>10</y>
+    <x>50</x>
+    <y>100</y>
   </coordinates>
   <activeFrame>0</activeFrame>
   <radioState>0</radioState>
@@ -22,7 +22,7 @@
   </frequency>
   <autoConfig>autoConfig</autoConfig>
   <handoverSNR>0.0</handoverSNR>
-  <cellID>0</cellID>
+  <cellID>203665</cellID>
   <network>
     <lte>0</lte>
     <g2>0</g2>

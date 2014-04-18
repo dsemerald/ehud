@@ -57,6 +57,7 @@ public class World {
 			XPath xpath = xPathfactory.newXPath();
 			XPathExpression xcord = xpath.compile("/radio/coordinates/x/text()");
 			XPathExpression ycord = xpath.compile("/radio/coordinates/y/text()");
+			XPathExpression cellid = xpath.compile("/radio/cellID/text()");
 			for (File xml : files) {
 				if (xml.getName().startsWith("radio_")) {
 					System.out.println(xml.getName());
@@ -65,6 +66,7 @@ public class World {
 						Radio r = new Radio();
 						r.setxCoord(Float.valueOf(xcord.evaluate(doc)));
 						r.setyCoord(Float.valueOf(ycord.evaluate(doc)));
+						r.setCellID(Integer.valueOf(cellid.evaluate(doc)));
 						radioElements.add(r);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -77,6 +79,24 @@ public class World {
 		}
 		return 0;
 	}
+
+	public List<Radio> getRadioElements() {
+		return radioElements;
+	}
+
+	public void setRadioElements(List<Radio> radioElements) {
+		this.radioElements = radioElements;
+	}
+
+	public List<Interference> getInterferenceElements() {
+		return interferenceElements;
+	}
+
+	public void setInterferenceElements(List<Interference> interferenceElements) {
+		this.interferenceElements = interferenceElements;
+	}
+	
+	
 }
 
 
