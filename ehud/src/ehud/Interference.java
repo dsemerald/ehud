@@ -11,7 +11,7 @@ public class Interference {
 	/**
 	 * x-Coordinate of the center
 	 */
-	float xCord;
+	float xCoord;
 	/**
 	 * y-Coordinate of the center
 	 */
@@ -20,4 +20,26 @@ public class Interference {
 	 * How big is the blind spot
 	 */
 	float radius;
+	
+	public float getxCoord() {
+		return xCoord;
+	}
+	public void setxCoord(float xCoord) {
+		this.xCoord = xCoord;
+	}
+	public float getyCoord() {
+		return yCoord;
+	}
+	public void setyCoord(float yCoord) {
+		this.yCoord = yCoord;
+	}
+	public float getRadius() {
+		return radius;
+	}
+	public void setRadius(float radius) {
+		this.radius = radius;
+	}
+	
+	
+	
 }

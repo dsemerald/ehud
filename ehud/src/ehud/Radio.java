@@ -15,7 +15,17 @@ public class Radio {
 	 */
 	float yCoord;
 	/** The physical cell id **/
-	int cellID;
+	int cellID = -1;
+	/**
+	 * maintains if radio is active
+	 */
+	boolean radioState = false;
+	/**
+	 * From which step of the simulation does this radio become active
+	 */
+	int activeFrame = 9999;
+	
+	
 	
 	/*
 	 * Getter and setters
