@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+  <xsd:element name="application">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element type="xsd:byte" name="maintainBufferCapacity"/><!--Amount of bandwidth to maintain for overload protection-->
+        <xsd:element type="xsd:byte" name="useTDMA"/> <!-- Network can use Time division multiplexing -->
+        <xsd:element type="xsd:byte" name="useCDMA"/> <!-- Network can use Code Division multiple access -->
+        <xsd:element type="xsd:byte" name="Qos"/> <!-- Minimum number of success of stability function -->
+        <xsd:element name="protocols">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element type="xsd:byte" name="ear"/>
+              <xsd:element type="xsd:byte" name="sar"/>
+              <xsd:element type="xsd:byte" name="swe"/>
+              <xsd:element type="xsd:byte" name="mwe"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element type="xsd:int" name="maxframes"/> <!-- Length of simulation -->
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

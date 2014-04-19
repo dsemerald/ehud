@@ -43,6 +43,14 @@ public class World {
 	 * y-coordinates. This makes search easy
 	 */
 	List<Interference> interferenceElements = new ArrayList<Interference>();
+	/**
+	 * Stop after how many steps
+	 */
+	int maxSteps = 0;
+	/**
+	 * track where we are in the simulation
+	 */
+	int currentStep = 0;
 
 	/**
 	 * Loads the world with members
@@ -50,7 +58,7 @@ public class World {
 	 * @return 0 is load unsuccessful
 	 * @return 1 if load successful
 	 */
-	int initialize() {
+	public int initialize() {
 		Collection<File> files = FileUtils.listFiles(new File("xml"), null,
 				false);
 		try {
@@ -151,6 +159,20 @@ public class World {
 		Collections.sort(radioElements, new AxisSorter());
 	}
 
+	/**
+	 * Advances the simulation by one step
+	 * @return 0 is failure, 1 is success
+	 */
+	public int step(){
+		if(currentStep < maxSteps){
+			
+		}
+		currentStep++;
+		return 0;
+	}
+	
+	/*getters and setters*/
+	
 	public List<Radio> getRadioElements() {
 		return radioElements;
 	}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../xsd/application.xsd">
+  <maintainBufferCapacity>0</maintainBufferCapacity>
+  <useTDMA>0</useTDMA>
+  <useCDMA>0</useCDMA>
+  <Qos>0</Qos>
+  <protocols>
+    <ear>0</ear>
+    <sar>0</sar>
+    <swe>0</swe>
+    <mwe>0</mwe>
+  </protocols>
+  <maxframes>15</maxframes>
+</application>
