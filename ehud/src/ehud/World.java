@@ -65,6 +65,7 @@ public class World {
 			// build the common objects we need outside the for loop
 			loadRadios(files);
 			loadInterference(files);
+			loadApplication(files);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -72,15 +73,43 @@ public class World {
 	}
 
 	/**
+	 * Load application specific settings
+	 * 
+	 * @param files
+	 */
+	private void loadApplication(Collection<File> files)
+			throws ParserConfigurationException, XPathExpressionException {
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		XPathFactory xPathfactory = XPathFactory.newInstance();
+		XPath xpath = xPathfactory.newXPath();
+		XPathExpression maxFrames = xpath
+				.compile("/application/maxframes/text()");
+		// XPathExpression ycord = xpath.compile("/radio/coordinates/y/text()");
+		// XPathExpression cellid = xpath.compile("/radio/cellID/text()");
+		for (File xml : files) {
+			if (xml.getName().startsWith("application")) {
+				try {
+					Document doc = dBuilder.parse(xml);
+					maxSteps = Integer.valueOf(maxFrames.evaluate(doc));
+				} catch (Exception e) {
+					maxSteps = 0;
+					e.printStackTrace(); // TODO: implement logger
+				}
+			}
+		}
+	}
+
+	/**
 	 * Load interference cells from the xml files
+	 * 
 	 * @param files
 	 * @throws ParserConfigurationException
 	 * @throws XPathExpressionException
 	 */
 	private void loadInterference(Collection<File> files)
 			throws ParserConfigurationException, XPathExpressionException {
-		DocumentBuilderFactory dbFactory = DocumentBuilderFactory
-				.newInstance();
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		XPathFactory xPathfactory = XPathFactory.newInstance();
 		XPath xpath = xPathfactory.newXPath();
@@ -108,12 +137,9 @@ public class World {
 																	// interference
 																	// object
 							Element product = (Element) cll;
-							intr.setRadius(Float.valueOf(radius
-									.evaluate(cll)));
-							intr.setxCoord(Float.valueOf(xcord
-									.evaluate(cll)));
-							intr.setyCoord(Float.valueOf(ycord
-									.evaluate(cll)));
+							intr.setRadius(Float.valueOf(radius.evaluate(cll)));
+							intr.setxCoord(Float.valueOf(xcord.evaluate(cll)));
+							intr.setyCoord(Float.valueOf(ycord.evaluate(cll)));
 							interferenceElements.add(intr);
 						}
 					}
@@ -143,7 +169,7 @@ public class World {
 		XPathExpression cellid = xpath.compile("/radio/cellID/text()");
 		for (File xml : files) {
 			if (xml.getName().startsWith("radio_")) {
-				 //System.out.println();
+				// System.out.println();
 				try {
 					Document doc = dBuilder.parse(xml);
 					Radio r = new Radio();
@@ -161,18 +187,28 @@ public class World {
 
 	/**
 	 * Advances the simulation by one step
-	 * @return 0 is failure, 1 is success
+	 * 
+	 * @return Number of steps remaining in simulation
 	 */
-	public int step(){
-		if(currentStep < maxSteps){
-			
+	public int step() {
+		if (currentStep < maxSteps) {
+
 		}
 		currentStep++;
-		return 0;
+		return maxSteps - currentStep;
 	}
-	
-	/*getters and setters*/
-	
+
+	/**
+	 * Checks if there are steps remaining to be executed in the simulation
+	 * 
+	 * @return True if simulation can be continued
+	 */
+	public boolean hasNext() {
+		return (maxSteps - currentStep) > 0;
+	}
+
+	/* getters and setters */
+
 	public List<Radio> getRadioElements() {
 		return radioElements;
 	}
@@ -187,6 +223,14 @@ public class World {
 
 	public void setInterferenceElements(List<Interference> interferenceElements) {
 		this.interferenceElements = interferenceElements;
+	}
+
+	public int getCurrentStep() {
+		return currentStep;
+	}
+
+	public void setCurrentStep(int currentStep) {
+		this.currentStep = currentStep;
 	}
 
 }

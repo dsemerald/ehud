@@ -19,6 +19,11 @@ import javax.imageio.ImageIO;
  * 
  */
 public class Plot {
+	
+	/**
+	 * Used to generate the file number
+	 */
+	private int stepNumber = 0;
 
 	public int saveImageToFile(World w) {
 		int width = 600;
@@ -30,7 +35,7 @@ public class Plot {
 		drawGrid(bi,g);
 		plotRadios(bi,g, w);
 		plotInterference(bi,g,w);
-		File outputfile = new File("saved.png");//TODO: filename should coincide with step
+		File outputfile = new File("step_"+stepNumber+".png");//TODO: filename should coincide with step
 		try {
 			ImageIO.write(bi, "png", outputfile);
 		} catch (Exception e) {
@@ -134,4 +139,13 @@ public class Plot {
 		return bi;
 	}
 
+	public int getStepNumber() {
+		return stepNumber;
+	}
+
+	public void setStepNumber(int stepNumber) {
+		this.stepNumber = stepNumber;
+	}
+
+	
 }

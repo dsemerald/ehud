@@ -7,7 +7,11 @@ public class Main {
 		World world = new World();
 		world.initialize();
 		Plot p = new Plot();
-		p.saveImageToFile(world);
+		while(world.hasNext()){
+			world.step();
+			p.setStepNumber(world.getCurrentStep());
+			p.saveImageToFile(world);
+		}
 	}
 
 }
