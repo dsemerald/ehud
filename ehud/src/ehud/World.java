@@ -7,6 +7,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -157,29 +160,18 @@ public class World {
 	 * @param files
 	 * @throws ParserConfigurationException
 	 * @throws XPathExpressionException
+	 * @throws JAXBException
 	 */
 	private void loadRadios(Collection<File> files)
-			throws ParserConfigurationException, XPathExpressionException {
-		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		XPathFactory xPathfactory = XPathFactory.newInstance();
-		XPath xpath = xPathfactory.newXPath();
-		XPathExpression xcord = xpath.compile("/radio/coordinates/x/text()");
-		XPathExpression ycord = xpath.compile("/radio/coordinates/y/text()");
-		XPathExpression cellid = xpath.compile("/radio/cellID/text()");
+			throws ParserConfigurationException, XPathExpressionException,
+			JAXBException {
+		JAXBContext jc = JAXBContext.newInstance(Radio.class);
+		System.out.println("jaxbContext is=" +jc.toString());
 		for (File xml : files) {
 			if (xml.getName().startsWith("radio_")) {
-				// System.out.println();
-				try {
-					Document doc = dBuilder.parse(xml);
-					Radio r = new Radio();
-					r.setxCoord(Float.valueOf(xcord.evaluate(doc)));
-					r.setyCoord(Float.valueOf(ycord.evaluate(doc)));
-					r.setCellID(Integer.valueOf(cellid.evaluate(doc)));
-					radioElements.add(r);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				Unmarshaller u = jc.createUnmarshaller();
+				Radio radio = (Radio) u.unmarshal(xml);
+				radioElements.add(radio);
 			}
 		}
 		Collections.sort(radioElements, new AxisSorter());
