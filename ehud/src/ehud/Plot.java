@@ -93,7 +93,9 @@ public class Plot {
 		float alpha = 0.50f;
 		int d = 150; //TODO: radius must be from transmission power not harcoded
 		for (Radio r : w.getRadioElements()) {
-			System.out.println(r.getCellID());
+			if(!r.isRadioState()){
+				continue;
+			}
 			g.setPaint(Color.red);
 			AlphaComposite myAlpha = AlphaComposite.getInstance(
 					AlphaComposite.SRC_OVER, 1f);

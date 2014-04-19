@@ -20,11 +20,24 @@ public class Radio extends GridElement {
 	/**
 	 * maintains if radio is active
 	 */
+	@XmlElement
 	boolean radioState = false;
 	/**
 	 * From which step of the simulation does this radio become active
 	 */
+	@XmlElement
 	int activeFrame = 9999;
+	
+	/**
+	 * What should the radio do in this step
+	 * @return
+	 */
+	public int step(int frameNumber){
+		if(!radioState){
+			radioState = activeFrame==frameNumber?true:false;
+		}
+		return 0;
+	}
 	
 	
 	
@@ -36,6 +49,18 @@ public class Radio extends GridElement {
 	}
 	public void setCellID(int cellID) {
 		this.cellID = cellID;
+	}
+	public boolean isRadioState() {
+		return radioState;
+	}
+	public void setRadioState(boolean radioState) {
+		this.radioState = radioState;
+	}
+	public int getActiveFrame() {
+		return activeFrame;
+	}
+	public void setActiveFrame(int activeFrame) {
+		this.activeFrame = activeFrame;
 	}
 	
 	

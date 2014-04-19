@@ -166,11 +166,12 @@ public class World {
 			throws ParserConfigurationException, XPathExpressionException,
 			JAXBException {
 		JAXBContext jc = JAXBContext.newInstance(Radio.class);
-		System.out.println("jaxbContext is=" +jc.toString());
 		for (File xml : files) {
 			if (xml.getName().startsWith("radio_")) {
 				Unmarshaller u = jc.createUnmarshaller();
 				Radio radio = (Radio) u.unmarshal(xml);
+				boolean state = radio.getActiveFrame()==0? true:radio.isRadioState();
+				radio.setRadioState(state);
 				radioElements.add(radio);
 			}
 		}
@@ -183,10 +184,12 @@ public class World {
 	 * @return Number of steps remaining in simulation
 	 */
 	public int step() {
-		if (currentStep < maxSteps) {
-
-		}
 		currentStep++;
+		if (currentStep <= maxSteps) {
+			for(Radio r: radioElements){
+				r.step(currentStep);
+			}
+		}
 		return maxSteps - currentStep;
 	}
 
