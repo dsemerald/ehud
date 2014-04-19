@@ -1,6 +1,8 @@
 package ehud.comparators;
 
 import java.util.Comparator;
+
+import ehud.GridElement;
 import ehud.Radio;
 
 /**
@@ -8,10 +10,10 @@ import ehud.Radio;
  * @author Emerald Dsouza
  *
  */
-public class AxisSorter implements Comparator<Radio> {
+public class AxisSorter implements Comparator<GridElement> {
 
 	@Override
-	public int compare(Radio r1, Radio r2) {
+	public int compare(GridElement r1, GridElement r2) {
 		if(r1.getxCoord()==r2.getxCoord()){
 			return (r1.getyCoord() < r2.getyCoord())? 0 : 1;
 		}

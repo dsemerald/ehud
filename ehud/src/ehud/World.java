@@ -114,6 +114,7 @@ public class World {
 				}
 			}
 		}
+		Collections.sort(interferenceElements, new AxisSorter());
 	}
 
 	/**
@@ -134,7 +135,7 @@ public class World {
 		XPathExpression cellid = xpath.compile("/radio/cellID/text()");
 		for (File xml : files) {
 			if (xml.getName().startsWith("radio_")) {
-				// System.out.println(xml.getName());
+				 //System.out.println();
 				try {
 					Document doc = dBuilder.parse(xml);
 					Radio r = new Radio();

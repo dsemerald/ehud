@@ -7,32 +7,14 @@ package ehud;
  * @author Emerald Dsouza
  * 
  */
-public class Interference {
-	/**
-	 * x-Coordinate of the center
-	 */
-	float xCoord;
-	/**
-	 * y-Coordinate of the center
-	 */
-	float yCoord;
+public class Interference extends GridElement {
+	
 	/**
 	 * How big is the blind spot
 	 */
 	float radius;
 	
-	public float getxCoord() {
-		return xCoord;
-	}
-	public void setxCoord(float xCoord) {
-		this.xCoord = xCoord;
-	}
-	public float getyCoord() {
-		return yCoord;
-	}
-	public void setyCoord(float yCoord) {
-		this.yCoord = yCoord;
-	}
+	
 	public float getRadius() {
 		return radius;
 	}

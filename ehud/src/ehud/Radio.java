@@ -5,15 +5,8 @@ package ehud;
  * @author Emerald Dsouza
  *
  */
-public class Radio {
-	/**
-	 * x-Coordinate of the center
-	 */
-	float xCoord;
-	/**
-	 * y-Coordinate of the center
-	 */
-	float yCoord;
+public class Radio extends GridElement {
+	
 	/** The physical cell id **/
 	int cellID = -1;
 	/**
@@ -30,18 +23,6 @@ public class Radio {
 	/*
 	 * Getter and setters
 	 */
-	public float getxCoord() {
-		return xCoord;
-	}
-	public void setxCoord(float xCord) {
-		this.xCoord = xCord;
-	}
-	public float getyCoord() {
-		return yCoord;
-	}
-	public void setyCoord(float yCoord) {
-		this.yCoord = yCoord;
-	}
 	public int getCellID() {
 		return cellID;
 	}
