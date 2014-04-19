@@ -29,6 +29,7 @@ public class Plot {
 		setCommonGraphicsOptions(g);
 		drawGrid(bi,g);
 		plotRadios(bi,g, w);
+		plotInterference(bi,g,w);
 		File outputfile = new File("saved.png");//TODO: filename should coincide with step
 		try {
 			ImageIO.write(bi, "png", outputfile);
@@ -38,6 +39,30 @@ public class Plot {
 		return 0;
 	}
 	
+	/**
+	 * Plot zones with interference as black circles on the grid
+	 * @param bi Buffered Image
+	 * @param g	 graphics object preferably with options set
+	 * @param w	 World object
+	 */
+	private void plotInterference(BufferedImage bi, Graphics2D g, World w) {
+		float alpha = 0.50f;
+		AlphaComposite myAlpha = AlphaComposite.getInstance(
+				AlphaComposite.SRC_OVER, alpha);
+		g.setComposite(myAlpha);
+		g.setColor(Color.black);
+		for(Interference in: w.getInterferenceElements()){
+			float d = in.getRadius();
+			Ellipse2D.Double circle = new Ellipse2D.Double(in.getxCoord() - d
+					/ 2, in.getyCoord() - d / 2, d, d);
+			g.fill(circle);
+		}	
+		//restore the alpha
+		myAlpha = AlphaComposite.getInstance(
+				AlphaComposite.SRC_OVER, 1.0f);
+		g.setComposite(myAlpha);
+	}
+
 	private Graphics2D setCommonGraphicsOptions(Graphics2D g){
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
@@ -53,13 +78,15 @@ public class Plot {
 	 * 
 	 * @param bi
 	 *            A buffered Image
-	 * @param g 
+	 * @param g Graphics object preferably with parameters set
 	 * @param w
 	 *            A world object
 	 * @return a buffered image
 	 */
 	private BufferedImage plotRadios(BufferedImage bi, Graphics2D g, World w) {
 		int rectWidth = 5, rectHeight = 5;
+		float alpha = 0.50f;
+		int d = 150; //TODO: radius must be from transmission power not harcoded
 		for (Radio r : w.getRadioElements()) {
 			g.setPaint(Color.red);
 			AlphaComposite myAlpha = AlphaComposite.getInstance(
@@ -71,11 +98,9 @@ public class Plot {
 					r.getyCoord());
 			// now draw how far the transmission goes
 			g.setColor(Color.blue);
-			float alpha = 0.50f;
-			int d = 150;
 			Ellipse2D.Double circle = new Ellipse2D.Double(r.getxCoord() - d
 					/ 2, r.getyCoord() - d / 2, d, d);
-			myAlpha = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f);
+			myAlpha = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
 			g.setComposite(myAlpha);
 			g.fill(circle);
 		}

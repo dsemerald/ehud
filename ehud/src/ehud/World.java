@@ -56,53 +56,64 @@ public class World {
 		try {
 			// build the common objects we need outside the for loop
 			loadRadios(files);
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory
-					.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			XPathFactory xPathfactory = XPathFactory.newInstance();
-			XPath xpath = xPathfactory.newXPath();
-			XPathExpression cell = xpath.compile("/interferenceMap/cell");
-			XPathExpression xcord = xpath.compile("x/text()");
-			XPathExpression ycord = xpath.compile("y/text()");
-			XPathExpression radius = xpath.compile("radius/text()");
-			// iterate over all the files in xml folder
-			for (File xml : files) {
-				// if the file begins with interference_
-				if (xml.getName().startsWith("interference_")) {
-					try {
-						Document doc = dBuilder.parse(xml);
-						// there are multiple inteference cells defined in one
-						// xml file
-						NodeList cells = (NodeList) cell.evaluate(doc,
-								XPathConstants.NODESET);
-						int loopLength = cells.getLength() - 1;
-						for (int i = 0; i < loopLength; i++) {
-							Node cll = cells.item(i);
-							if (cll != null
-									&& cll.getNodeType() == Node.ELEMENT_NODE) {
-								Interference intr = new Interference(); // create
-																		// the
-																		// interference
-																		// object
-								Element product = (Element) cll;
-								intr.setRadius(Float.valueOf(radius
-										.evaluate(cll)));
-								intr.setxCoord(Float.valueOf(xcord
-										.evaluate(cll)));
-								intr.setyCoord(Float.valueOf(ycord
-										.evaluate(cll)));
-								interferenceElements.add(intr);
-							}
-						}
-					} catch (Exception e) {
-						e.printStackTrace();// TODO: implement logger
-					}
-				}
-			}
+			loadInterference(files);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	/**
+	 * Load interference cells from the xml files
+	 * @param files
+	 * @throws ParserConfigurationException
+	 * @throws XPathExpressionException
+	 */
+	private void loadInterference(Collection<File> files)
+			throws ParserConfigurationException, XPathExpressionException {
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory
+				.newInstance();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		XPathFactory xPathfactory = XPathFactory.newInstance();
+		XPath xpath = xPathfactory.newXPath();
+		XPathExpression cell = xpath.compile("/interferenceMap/cell");
+		XPathExpression xcord = xpath.compile("x/text()");
+		XPathExpression ycord = xpath.compile("y/text()");
+		XPathExpression radius = xpath.compile("radius/text()");
+		// iterate over all the files in xml folder
+		for (File xml : files) {
+			// if the file begins with interference_
+			if (xml.getName().startsWith("interference_")) {
+				try {
+					Document doc = dBuilder.parse(xml);
+					// there are multiple inteference cells defined in one
+					// xml file
+					NodeList cells = (NodeList) cell.evaluate(doc,
+							XPathConstants.NODESET);
+					int loopLength = cells.getLength() - 1;
+					for (int i = 0; i < loopLength; i++) {
+						Node cll = cells.item(i);
+						if (cll != null
+								&& cll.getNodeType() == Node.ELEMENT_NODE) {
+							Interference intr = new Interference(); // create
+																	// the
+																	// interference
+																	// object
+							Element product = (Element) cll;
+							intr.setRadius(Float.valueOf(radius
+									.evaluate(cll)));
+							intr.setxCoord(Float.valueOf(xcord
+									.evaluate(cll)));
+							intr.setyCoord(Float.valueOf(ycord
+									.evaluate(cll)));
+							interferenceElements.add(intr);
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();// TODO: implement logger
+				}
+			}
+		}
 	}
 
 	/**
