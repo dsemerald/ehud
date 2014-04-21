@@ -187,7 +187,7 @@ public class World {
 		currentStep++;
 		if (currentStep <= maxSteps) {
 			for(Radio r: radioElements){
-				r.step(currentStep);
+				r.step(currentStep, this);
 			}
 		}
 		return maxSteps - currentStep;

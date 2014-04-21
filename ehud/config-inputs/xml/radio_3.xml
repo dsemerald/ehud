@@ -4,7 +4,7 @@
     <x>300</x>
     <y>300</y>
   </coordinates>
-  <activeFrame>3</activeFrame>
+  <activeFrame>4</activeFrame>
   <radioState>0</radioState>
   <type>type</type>
   <antenna>
@@ -17,8 +17,8 @@
   </antenna>
   <frequency>
     <mode>mode</mode>
-    <main>0</main>
-    <fractional>0</fractional>
+    <main>24</main>
+    <fractional>12</fractional>
   </frequency>
   <autoConfig>autoConfig</autoConfig>
   <handoverSNR>0.0</handoverSNR>

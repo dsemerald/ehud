@@ -17,8 +17,8 @@
   </antenna>
   <frequency>
     <mode>mode</mode>
-    <main>0</main>
-    <fractional>0</fractional>
+    <main>24</main>
+    <fractional>10</fractional>
   </frequency>
   <autoConfig>autoConfig</autoConfig>
   <handoverSNR>0.0</handoverSNR>
