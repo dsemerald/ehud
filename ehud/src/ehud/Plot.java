@@ -105,7 +105,8 @@ public class Plot {
 			g.drawString(String.valueOf(r.getCellID()), r.getxCoord(),
 					r.getyCoord());
 			// now draw how far the transmission goes
-			g.setColor(Color.blue);
+			//g.setColor(Color.blue);
+			g.setColor(r.getColor());
 			Ellipse2D.Double circle = new Ellipse2D.Double(r.getxCoord() - d
 					/ 2, r.getyCoord() - d / 2, d, d);
 			myAlpha = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);

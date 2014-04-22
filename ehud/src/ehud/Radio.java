@@ -22,7 +22,7 @@ import org.eclipse.persistence.oxm.annotations.XmlPath;
 public class Radio extends GridElement {
 
 	int[] allowedMainFrequencies = { 200, 201, 202, 203 };
-	int[] allowedFracFrequencies = { 24, 48, 67 };
+	int[] allowedFracFrequencies = { 24, 48, 72 };
 
 	/** The physical cell id **/
 	@XmlElement
@@ -40,9 +40,9 @@ public class Radio extends GridElement {
 
 	boolean initialized = false; // keep track if we have run setup
 
-	@XmlPath(value = "/radio/frequency/main")
+	@XmlPath(value = "/radio/frequency/main/text()")
 	int freqMain = 0;
-	@XmlPath(value = "/radio/frequency/fractional")
+	@XmlPath(value = "/radio/frequency/fractional/text()")
 	int freqFrac = 0;
 
 	/**
@@ -52,6 +52,12 @@ public class Radio extends GridElement {
 	 * @return
 	 */
 	public int setup(World w) {
+		if(freqMain==0){
+			freqMain=200;
+		}
+		if(freqFrac==0){
+			freqFrac=24;
+		}
 		initialized = true;
 		return 0; // TODO: proper return value
 	}
@@ -81,10 +87,14 @@ public class Radio extends GridElement {
 	private void checkFrequencyClash(World w) {
 		ArrayList<Radio> neighbors = getNeighbours(w);
 		for (Radio r : neighbors) {
+			if(r.getCellID()==cellID){
+				// do nothing its just us
+				continue;
+			}
 			if (r.getFreqMain() == this.getFreqMain()
 					&& r.getFreqFrac() == this.getFreqFrac()) {
-				// clash choose another main freq
-
+				freqMain+=1;
+				freqFrac+=24;
 			}
 		}
 	}
@@ -145,36 +155,41 @@ public class Radio extends GridElement {
 		switch (this.freqMain) {
 		case 200: {
 			switch (this.freqFrac) {
-			case 24: c = Color.decode("33CC33"); break;
-			case 48: c = Color.decode("009933"); break;
-			case 76: c = Color.decode("669900"); break;
+			case 24: c = Color.decode("0x33CC33"); break;
+			case 48: c = Color.decode("0x009933"); break;
+			case 72: c = Color.decode("0x669900"); break;
+			default: c = Color.yellow;
 			}
 			break;
 		}
 		case 201: {
 			switch (this.freqFrac) {
-			case 24: c = Color.decode("3399FF"); break;
-			case 48: c = Color.decode("0000FF"); break;
-			case 76: c = Color.decode("3366CC"); break;
+			case 24: c = Color.decode("0x3399FF"); break;
+			case 48: c = Color.decode("0x0000FF"); break;
+			case 72: c = Color.decode("0x3366CC"); break;
+			default: c = Color.yellow;
 			}
 			break;
 		}
 		case 202: {
 			switch (this.freqFrac) {
-			case 24: c = Color.decode("FF00FF"); break;
-			case 48: c = Color.decode("FF0066"); break;
-			case 76: c = Color.decode("6600CC"); break;
+			case 24: c = Color.decode("0xFF00FF"); break;
+			case 48: c = Color.decode("0xFF0066"); break;
+			case 72: c = Color.decode("0x6600CC"); break;
+			default: c = Color.yellow;
 			}
 			break;
 		}
 		case 203: {
 			switch (this.freqFrac) {
-			case 24: c = Color.decode("663300"); break;
-			case 48: c = Color.decode("CC6600"); break;
-			case 76: c = Color.decode("CCCC00"); break;
+			case 24: c = Color.decode("0x663300"); break;
+			case 48: c = Color.decode("0xCC6600"); break;
+			case 72: c = Color.decode("0xCCCC00"); break;
+			default: c = Color.yellow;
 			}
 			break;
 		}
+		default: c = Color.orange; 
 		}
 		return c;
 	}
