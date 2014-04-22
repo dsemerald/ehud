@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.log4j.Logger;
 import org.eclipse.persistence.oxm.annotations.XmlPath;
 
 /**
@@ -20,6 +21,9 @@ import org.eclipse.persistence.oxm.annotations.XmlPath;
 @XmlRootElement(name = "radio")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Radio extends GridElement {
+	
+	static Logger log = Logger.getLogger(
+            Radio.class.getName());
 
 	int[] allowedMainFrequencies = { 200, 201, 202, 203 };
 	int[] allowedFracFrequencies = { 24, 48, 72 };
@@ -73,6 +77,7 @@ public class Radio extends GridElement {
 		}
 		if (!radioState) {
 			radioState = activeFrame == frameNumber ? true : false;
+			log.debug("Radio "+cellID+" has become active");
 		} else { // radio is active
 			checkFrequencyClash(w);
 		}
@@ -86,6 +91,11 @@ public class Radio extends GridElement {
 	 */
 	private void checkFrequencyClash(World w) {
 		ArrayList<Radio> neighbors = getNeighbours(w);
+		if(neighbors.size()>2){
+			activeFrame = w.getCurrentStep() + 4;
+			radioState = false;
+			log.debug("Too many overlapping radios. Turning off radio "+cellID + " to conserve power");
+		}
 		for (Radio r : neighbors) {
 			if(r.getCellID()==cellID){
 				// do nothing its just us
@@ -95,6 +105,9 @@ public class Radio extends GridElement {
 					&& r.getFreqFrac() == this.getFreqFrac()) {
 				freqMain+=1;
 				freqFrac+=24;
+				if(freqMain>203){freqMain=200;}
+				if(freqFrac>72){freqFrac=24;}
+				log.debug("Updating frequency of "+cellID+" to "+getFreqMain()+"."+r.getFreqFrac()+"MHz");
 			}
 		}
 	}

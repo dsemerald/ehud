@@ -20,6 +20,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -36,6 +37,10 @@ import ehud.comparators.AxisSorter;
  * 
  */
 public class World {
+	
+	static Logger log = Logger.getLogger(
+            World.class.getName());
+	
 	/**
 	 * The radio elements are sorted by x-coordinates first then by the
 	 * y-coordinates. This makes search easy
@@ -185,6 +190,7 @@ public class World {
 	 */
 	public int step() {
 		currentStep++;
+		log.debug("Step "+currentStep);
 		if (currentStep <= maxSteps) {
 			for(Radio r: radioElements){
 				r.step(currentStep, this);

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<radio xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="radio.xsd">
+	<coordinates>
+		<x>479.18</x>
+		<y>168.0</y>
+	</coordinates>
+	<activeFrame>1</activeFrame>
+	<cellID>30003</cellID>
+	<coordinates>
+		<main>0</main>
+		<fractional>0</fractional>
+	</coordinates>
+</radio>
