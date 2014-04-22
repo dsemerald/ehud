@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<radio xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="radio.xsd">
+  <coordinates>
+    <x>70</x>
+    <y>70</y>
+  </coordinates>
+  <activeFrame>1</activeFrame>
+  <radioState>0</radioState>
+  <type>type</type>
+  <antenna>
+    <transmitter>0</transmitter>
+    <receiver>0</receiver>
+    <towerMounted>0</towerMounted>
+    <antennaLength>0</antennaLength>
+    <maxTransmissionPower>0</maxTransmissionPower>
+    <powerSaverModeOn>0</powerSaverModeOn>
+  </antenna>
+  <frequency>
+    <mode>mode</mode>
+    <main>0</main>
+    <fractional>0</fractional>
+  </frequency>
+  <autoConfig>autoConfig</autoConfig>
+  <handoverSNR>0.0</handoverSNR>
+  <cellID>300124</cellID>
+  <network>
+    <lte>0</lte>
+    <g2>0</g2>
+    <g3>0</g3>
+    <non-3gpp>0</non-3gpp>
+  </network>
+</radio>
