@@ -1,5 +1,7 @@
 package algorithms;
 
+import ehud.World;
+
 /**
  * Purpose of this class if to maximize the battery usage
  * @author Emerald Dsouza
@@ -8,19 +10,19 @@ package algorithms;
 public class GreedyBattery implements Algorithm {
 
 	@Override
-	public int preStep() {
+	public int preStep(int frameNumber, World world) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int step() {
+	public int step(int frameNumber, World world) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int postStep() {
+	public int postStep(int frameNumber, World world) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
