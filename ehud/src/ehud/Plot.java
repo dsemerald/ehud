@@ -91,11 +91,11 @@ public class Plot {
 	private BufferedImage plotRadios(BufferedImage bi, Graphics2D g, World w) {
 		int rectWidth = 5, rectHeight = 5;
 		float alpha = 0.50f;
-		int d = 150; //TODO: radius must be from transmission power not harcoded
 		for (Radio r : w.getRadioElements()) {
 			if(!r.isRadioState()){
 				continue;
 			}
+			double d = r.getMaxTransmissionPower(); //TODO: radius must be from transmission power not harcoded
 			g.setPaint(Color.red);
 			AlphaComposite myAlpha = AlphaComposite.getInstance(
 					AlphaComposite.SRC_OVER, 1f);

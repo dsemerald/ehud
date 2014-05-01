@@ -13,9 +13,6 @@ import ehud.World;
  *
  */
 public class GreedyCoverage implements Algorithm {
-	
-	static Logger log = Logger.getLogger(
-            Algorithm.class.getName());
 
 	@Override
 	public int preStep(int frameNumber, World world, Radio radio) {

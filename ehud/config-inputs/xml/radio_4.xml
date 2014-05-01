@@ -12,7 +12,7 @@
     <receiver>0</receiver>
     <towerMounted>0</towerMounted>
     <antennaLength>0</antennaLength>
-    <maxTransmissionPower>0</maxTransmissionPower>
+    <maxTransmissionPower>150</maxTransmissionPower>
     <powerSaverModeOn>0</powerSaverModeOn>
   </antenna>
   <frequency>

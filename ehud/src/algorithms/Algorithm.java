@@ -3,6 +3,8 @@
  */
 package algorithms;
 
+import org.apache.log4j.Logger;
+
 import ehud.Radio;
 import ehud.World;
 
@@ -11,6 +13,9 @@ import ehud.World;
  *
  */
 public interface Algorithm {
+	
+	static Logger log = Logger.getLogger(
+            Algorithm.class.getName());
 	
 	/**
 	 * Algorithmic actions to perform before stepping through the simulation

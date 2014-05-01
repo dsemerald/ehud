@@ -52,6 +52,9 @@ public class Radio extends GridElement {
 	int freqMain = 0;
 	@XmlPath(value = "/radio/frequency/fractional/text()")
 	int freqFrac = 0;
+	
+	@XmlPath(value = "/radio/antenna/maxTransmissionPower/text()")
+	double maxTransmissionPower = 150;
 
 	/**
 	 * What all should be done when the radio is switched on
@@ -113,10 +116,6 @@ public class Radio extends GridElement {
 	private void checkFrequencyClash(World w) {
 		ArrayList<Radio> neighbors = getNeighbours(w);
 		for (Radio r : neighbors) {
-			if(r.getCellID()==cellID){
-				// do nothing its just us
-				continue;
-			}
 			if (r.getFreqMain() == this.getFreqMain()
 					&& r.getFreqFrac() == this.getFreqFrac()) {
 				freqMain+=1;
@@ -139,6 +138,10 @@ public class Radio extends GridElement {
 		ArrayList<Radio> neighbors = new ArrayList<Radio>();
 		int[] boundingBox = getBoundingBox(this);
 		for (Radio r : w.getRadioElements()) {
+			if(r.getCellID()==cellID){
+				// do nothing its just us
+				continue;
+			}
 			if (r.getxCoord() >= boundingBox[0]
 					&& r.getxCoord() <= boundingBox[1]) {
 				if (r.getyCoord() >= boundingBox[2]
@@ -264,6 +267,14 @@ public class Radio extends GridElement {
 
 	public void setFreqFrac(int freqFrac) {
 		this.freqFrac = freqFrac;
+	}
+
+	public double getMaxTransmissionPower() {
+		return maxTransmissionPower;
+	}
+
+	public void setMaxTransmissionPower(double maxTransmissionPower) {
+		this.maxTransmissionPower = maxTransmissionPower;
 	}
 
 }
