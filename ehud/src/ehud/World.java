@@ -26,6 +26,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import algorithms.GreedyCoverage;
 import ehud.comparators.AxisSorter;
 
 /**
@@ -59,6 +60,7 @@ public class World {
 	 * track where we are in the simulation
 	 */
 	int currentStep = 0;
+	String algorithm = GreedyCoverage.class.getName();
 
 	/**
 	 * Loads the world with members
@@ -93,6 +95,8 @@ public class World {
 		XPath xpath = xPathfactory.newXPath();
 		XPathExpression maxFrames = xpath
 				.compile("/application/maxframes/text()");
+		XPathExpression algo = xpath
+				.compile("/application/algorithm/text()");
 		// XPathExpression ycord = xpath.compile("/radio/coordinates/y/text()");
 		// XPathExpression cellid = xpath.compile("/radio/cellID/text()");
 		for (File xml : files) {
@@ -100,6 +104,7 @@ public class World {
 				try {
 					Document doc = dBuilder.parse(xml);
 					maxSteps = Integer.valueOf(maxFrames.evaluate(doc));
+					algorithm = algo.evaluate(doc);
 				} catch (Exception e) {
 					maxSteps = 0;
 					e.printStackTrace(); // TODO: implement logger
@@ -232,6 +237,18 @@ public class World {
 
 	public void setCurrentStep(int currentStep) {
 		this.currentStep = currentStep;
+	}
+
+	/**
+	 * What algorithm are we using in the simulation. Defined in algortihm.xml file
+	 * @return
+	 */
+	public String getAlgorithm() {
+		return algorithm;
+	}
+
+	public void setAlgorithm(String algorithm) {
+		this.algorithm = algorithm;
 	}
 
 }

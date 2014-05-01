@@ -11,6 +11,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.log4j.Logger;
 import org.eclipse.persistence.oxm.annotations.XmlPath;
 
+import algorithms.Algorithm;
+
 /**
  * Defines a radio element examples of which are a mobile phone or a
  * transmission tower
@@ -27,6 +29,8 @@ public class Radio extends GridElement {
 
 	int[] allowedMainFrequencies = { 200, 201, 202, 203 };
 	int[] allowedFracFrequencies = { 24, 48, 72 };
+	
+	private Algorithm algorithm;
 
 	/** The physical cell id **/
 	@XmlElement
@@ -62,6 +66,19 @@ public class Radio extends GridElement {
 		if(freqFrac==0){
 			freqFrac=24;
 		}
+		try{
+			Class klass = Class.forName(w.getAlgorithm());
+			algorithm = (Algorithm) klass.newInstance();
+		}
+		catch(ClassNotFoundException ex){
+			log.error("Could not load algorithm class");
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		initialized = true;
 		return 0; // TODO: proper return value
 	}
@@ -72,6 +89,7 @@ public class Radio extends GridElement {
 	 * @return
 	 */
 	public int step(int frameNumber, World w) {
+		
 		if (!initialized) {
 			setup(w);
 		}
@@ -79,7 +97,10 @@ public class Radio extends GridElement {
 			radioState = activeFrame == frameNumber ? true : false;
 			log.debug("Radio "+cellID+" has become active");
 		} else { // radio is active
+			algorithm.preStep(frameNumber, w, this);
+			algorithm.step(frameNumber, w, this);
 			checkFrequencyClash(w);
+			algorithm.postStep(frameNumber, w, this);
 		}
 		return 0;
 	}
@@ -91,11 +112,6 @@ public class Radio extends GridElement {
 	 */
 	private void checkFrequencyClash(World w) {
 		ArrayList<Radio> neighbors = getNeighbours(w);
-		if(neighbors.size()>2){
-			activeFrame = w.getCurrentStep() + 4;
-			radioState = false;
-			log.debug("Too many overlapping radios. Turning off radio "+cellID + " to conserve power");
-		}
 		for (Radio r : neighbors) {
 			if(r.getCellID()==cellID){
 				// do nothing its just us
@@ -119,7 +135,7 @@ public class Radio extends GridElement {
 	 * 
 	 * @return
 	 */
-	private ArrayList<Radio> getNeighbours(World w) {
+	public ArrayList<Radio> getNeighbours(World w) {
 		ArrayList<Radio> neighbors = new ArrayList<Radio>();
 		int[] boundingBox = getBoundingBox(this);
 		for (Radio r : w.getRadioElements()) {

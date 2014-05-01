@@ -3,6 +3,7 @@
  */
 package algorithms;
 
+import ehud.Radio;
 import ehud.World;
 
 /**
@@ -15,22 +16,25 @@ public interface Algorithm {
 	 * Algorithmic actions to perform before stepping through the simulation
 	 * @param frameNumber TODO
 	 * @param world TODO
+	 * @param radio TODO
 	 * @return int
 	 */
-	public int preStep(int frameNumber, World world);
+	public int preStep(int frameNumber, World world, Radio radio);
 	/**
 	 * Algorithmic actions to perform 
 	 * @param frameNumber what step of the simulation are we on
 	 * @param world a reference to the wrold object
+	 * @param radio TODO
 	 * @return int
 	 */
-	public int step(int frameNumber, World world);
+	public int step(int frameNumber, World world, Radio radio);
 	/**
 	 * Algorithmic actions to perform after stepping through the simulation
 	 * @param frameNumber TODO
 	 * @param world TODO
+	 * @param radio TODO
 	 * @return int
 	 */
-	public int postStep(int frameNumber, World world);
+	public int postStep(int frameNumber, World world, Radio radio);
 
 }

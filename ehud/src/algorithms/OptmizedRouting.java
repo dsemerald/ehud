@@ -1,5 +1,6 @@
 package algorithms;
 
+import ehud.Radio;
 import ehud.World;
 
 /**
@@ -10,19 +11,19 @@ import ehud.World;
 public class OptmizedRouting implements Algorithm {
 
 	@Override
-	public int preStep(int frameNumber, World world) {
+	public int preStep(int frameNumber, World world, Radio radio) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int step(int frameNumber, World world) {
+	public int step(int frameNumber, World world, Radio radio) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int postStep(int frameNumber, World world) {
+	public int postStep(int frameNumber, World world, Radio radio) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

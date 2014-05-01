@@ -11,4 +11,5 @@
     <mwe>0</mwe>
   </protocols>
   <maxframes>15</maxframes>
+  <algorithm>algorithms.GreedyCoverage</algorithm>
 </application>

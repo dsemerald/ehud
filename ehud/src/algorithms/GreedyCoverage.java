@@ -1,5 +1,10 @@
 package algorithms;
 
+import java.util.ArrayList;
+
+import org.apache.log4j.Logger;
+
+import ehud.Radio;
 import ehud.World;
 
 /**
@@ -8,21 +13,29 @@ import ehud.World;
  *
  */
 public class GreedyCoverage implements Algorithm {
+	
+	static Logger log = Logger.getLogger(
+            Algorithm.class.getName());
 
 	@Override
-	public int preStep(int frameNumber, World world) {
+	public int preStep(int frameNumber, World world, Radio radio) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int step(int frameNumber, World world) {
-		// TODO Auto-generated method stub
+	public int step(int frameNumber, World world, Radio radio) {
+		ArrayList<Radio> neighbors = radio.getNeighbours(world);
+		if(neighbors.size()>2){
+			radio.setActiveFrame(frameNumber + 4);
+			radio.setRadioState(false);
+			log.debug("Too many overlapping radios. Turning off radio "+radio.getCellID() + " to conserve power");
+		}
 		return 0;
 	}
 
 	@Override
-	public int postStep(int frameNumber, World world) {
+	public int postStep(int frameNumber, World world, Radio radio) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
