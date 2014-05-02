@@ -38,7 +38,7 @@ public class Radio extends GridElement {
 	/**
 	 * maintains if radio is active
 	 */
-	@XmlElement
+	@XmlElement(defaultValue="false")
 	boolean radioState = false;
 	/**
 	 * From which step of the simulation does this radio become active
@@ -98,7 +98,10 @@ public class Radio extends GridElement {
 		}
 		if (!radioState) {
 			radioState = activeFrame == frameNumber ? true : false;
-			log.debug("Radio "+cellID+" has become active");
+			radioState = activeFrame == 0? true:radioState;
+			if(radioState){
+				log.debug("Radio "+cellID+" has become active ");
+			}
 		} else { // radio is active
 			algorithm.preStep(frameNumber, w, this);
 			algorithm.step(frameNumber, w, this);
@@ -142,6 +145,9 @@ public class Radio extends GridElement {
 				// do nothing its just us
 				continue;
 			}
+			if(!r.isRadioState()){
+				continue;
+			}
 			if (r.getxCoord() >= boundingBox[0]
 					&& r.getxCoord() <= boundingBox[1]) {
 				if (r.getyCoord() >= boundingBox[2]
@@ -159,6 +165,7 @@ public class Radio extends GridElement {
 		}
 		return neighbors;
 	}
+	
 
 	/**
 	 * Returns the min(x,y) and max(x,y) that forms a box. If another radio has
@@ -168,7 +175,7 @@ public class Radio extends GridElement {
 	 * @return
 	 */
 	private int[] getBoundingBox(Radio r) {
-		int d = 100; // TODO: change this later
+		int d = algorithm.getBoundingBoxDistance(); // TODO: change this later
 		int minX = (int) Math.floor(r.getxCoord() - d);
 		int minY = (int) Math.floor(r.getyCoord() - d);
 		int maxX = (int) Math.floor(r.getxCoord() + d);

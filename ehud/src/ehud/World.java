@@ -180,8 +180,8 @@ public class World {
 			if (xml.getName().startsWith("radio_")) {
 				Unmarshaller u = jc.createUnmarshaller();
 				Radio radio = (Radio) u.unmarshal(xml);
-				boolean state = radio.getActiveFrame()==0? true:radio.isRadioState();
-				radio.setRadioState(state);
+				//boolean state = radio.getActiveFrame()==0? true:radio.isRadioState();
+				//radio.setRadioState(state);
 				radioElements.add(radio);
 			}
 		}

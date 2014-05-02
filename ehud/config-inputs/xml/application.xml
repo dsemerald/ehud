@@ -10,6 +10,6 @@
     <swe>0</swe>
     <mwe>0</mwe>
   </protocols>
-  <maxframes>15</maxframes>
-  <algorithm>algorithms.GreedyCoverage</algorithm>
+  <maxframes>6</maxframes>
+  <algorithm>algorithms.GreedyBattery</algorithm>
 </application>

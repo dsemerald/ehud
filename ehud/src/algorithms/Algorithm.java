@@ -41,5 +41,7 @@ public interface Algorithm {
 	 * @return int
 	 */
 	public int postStep(int frameNumber, World world, Radio radio);
+	
+	public int getBoundingBoxDistance();
 
 }

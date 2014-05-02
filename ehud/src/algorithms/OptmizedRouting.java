@@ -28,4 +28,10 @@ public class OptmizedRouting implements Algorithm {
 		return 0;
 	}
 
+	@Override
+	public int getBoundingBoxDistance() {
+		// TODO Auto-generated method stub
+		return 100;
+	}
+
 }

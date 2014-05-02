@@ -13,6 +13,8 @@ import ehud.World;
  *
  */
 public class GreedyCoverage implements Algorithm {
+	
+	int boundingBoxDistance = 100;
 
 	@Override
 	public int preStep(int frameNumber, World world, Radio radio) {
@@ -35,6 +37,18 @@ public class GreedyCoverage implements Algorithm {
 	public int postStep(int frameNumber, World world, Radio radio) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	/**
+	 * What distance should we consider for neighbours
+	 * @return
+	 */
+	public int getBoundingBoxDistance() {
+		return boundingBoxDistance;
+	}
+
+	public void setBoundingBoxDistance(int boundingBoxDistance) {
+		this.boundingBoxDistance = boundingBoxDistance;
 	}
 
 }
