@@ -20,6 +20,7 @@ Proposed Solution
 ==================
 The following project looks at Self Organizing network functions (SON) implemented in a software model.
 The project focusses on implementing efficient algorithms for the following network func- tions in Java
+
 1. self-configuration
   1. Physical Cell ID Configuration, 
   2. Self capability detection,
@@ -31,5 +32,4 @@ The project focusses on implementing efficient algorithms for the following netw
 3. self-healing
   1. Cell outage,
   2. Self-recovery of network element (NE)
-  3. 
   
